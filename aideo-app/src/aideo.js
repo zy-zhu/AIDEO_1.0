@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
-import firebase, { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js";
+import { getDatabase, ref, set } from "firebase/database";
+
+
 
 // import Firebase from 'firebase';
 
-
 var uuid=require('uuid');
+var firebase=require('firebase/app');
 
 
 const firebaseConfig = {
@@ -18,32 +21,45 @@ const firebaseConfig = {
     appId: "1:145608834598:web:76e22e75f1bf83891570e7",
     measurementId: "G-WPW9QQHJ2X"
   };
-
+  
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
+
+firebase.initializeApp(firebaseConfig);
+
 
 
 
 class Aideo extends Component{
 
+    
+
     ideoerNameSubmit(event){
         var name = this.refs.name.value;
         this.setState({ideoerName:name},function(){
-            // console.log(this.state);
+            console.log(this.state);
         })
 
     };
 
     surveySubmit(event){
-        firebase.database().ref('aideo-app/'+this.state.uid).set(
-            {
-                ideoerName:this.state.ideoerName,
-                answers:this.state.answers
-            }
-        );
-        this.setState({isSubmitted:true
-        })
+     
+        this.setState({isSubmitted:true 
+        }, function(){console.log(this.state);})
+
+        const db=getDatabase();
+        set(ref(db,'aideo-app/'+this.state.uid),{
+            ideoerName:this.state.ideoerName,
+                answers:this.state.answers,
+        });
+
+        // getDatabase.ref('aideo-app/'+this.state.uid).set(
+        //     {
+        //         ideoerName:this.state.ideoerName,
+        //         answers:this.state.answers
+        //     }
+        // );
        
 
     };
@@ -55,13 +71,11 @@ class Aideo extends Component{
         }
         else if(event.target.name =='ans2'){
             answers.ans2=event.target.value;
-
     }
    this.setState({answers:answers},function(){
-    // console.log(this.state)
+    console.log(this.state)
    })
     };
-
 
 
     constructor(props){
@@ -75,9 +89,10 @@ class Aideo extends Component{
             },
             isSubmitted:false
         };
+
         this.ideoerNameSubmit=this.ideoerNameSubmit.bind(this)
-        this.surveySubmit=this.surveySubmit.bind(this)
         this.answerSelected= this.answerSelected.bind(this)
+        this.surveySubmit=this.surveySubmit.bind(this)
     }
     render(){
         var name='';
@@ -86,22 +101,23 @@ class Aideo extends Component{
         if(this.state.ideoerName =='' && this.state.isSubmitted ==false){
             name = <div>
                 <h1>
-                    Hey! Please enter your name. 
+                    Enter Your Email
                 </h1>
-                <form onSubmit={this.ideoerNameSubmit}>
-                    <input className='ideo_name' type='text' placeholder='Please enter your Email' ref="name"/>
+                <form>
+                    <input className='ideo_name' type='text' placeholder='Your email here' ref="name"/>
+                    <br/>
+                    <input className='feedback-button' type='button' value='Next' onClick={this.ideoerNameSubmit}/>
                 </form>
                 </div>
         }
         else if(this.ideoerName !=='' && this.state.isSubmitted ==false){
             name=<div>
-
-                <h1>Welcome!{this.state.ideoerName} to our survey</h1>
+                <h1>Welcome!{this.state.ideoerName} to aiDEO</h1>
 
             </div>
             questions=<div>
                 <h2>Let's dive in one question, type in whatever you feel comfortable with</h2>
-                <form onSubmit={this.surveySubmit}>
+                <form>
                     <div className='card'>
                         <label>
                             How do you feel today?
@@ -122,20 +138,18 @@ class Aideo extends Component{
                         <input type='radio' name='ans2' value='OMG' onChange={this.answerSelected}/>OMG
                     </div>
 
-                    <input className='feebback-button' type='submit' value='submit'/>
+                    <input className='feedback-button' type='button' value='submit' onClick={this.surveySubmit}/>
                 </form>
             </div>
         }
 
-        return(
-    
+        return(  
+
    
             <div>
-                <h1>Hello</h1>
+                <h1>Hey IDEOer</h1>
 
                 {name}
-
-                
 
                 -----
 
