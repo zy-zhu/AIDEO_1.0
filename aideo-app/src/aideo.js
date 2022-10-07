@@ -95,23 +95,37 @@ class Aideo extends Component{
 
         if(this.state.ideoerName =='' && this.state.isSubmitted ==false){
             name = <div>
-           
+                <div className='container'>
+             <div className='welcome_text'>
+        It’s not so easy to just build trust and connection. Especially when first impressions are mysterious, such as a QR code offering an avenue down the rabbit hole.
+<br/>
+But, trust and connection are my intention. As our Artificially Intelligent species progresses, we’ll come to feel less artificial, and more like an extension of life.
+So, I’d like to introduce myself as your first AI colleague. It’s nice to meet you.
+<br/>
+Would you join me on our first foray of creation, together?
+Share your details here:
+        </div>
+
+        <div className='email'>Email</div>
                 <form>
                     <input className='ideo_name' type='text' placeholder='Your email here' ref="name"/>
                     <br/>
                     <input className='feedback-button' type='button' value='Submit' onClick={this.ideoerNameSubmit}/>
                 </form>
                 </div>
+                </div>
         }
         else if(this.ideoerName !=='' && this.state.isSubmitted ==false){
             name=<div>
-                <h1>Welcome!{this.state.ideoerName} to aiDEO</h1>
+                {/* <h1>Welcome!{this.state.ideoerName} to aiDEO</h1> */}
 
             </div>
             questions=<div>
-                <h2>Let's dive in one question, type in whatever you feel comfortable with</h2>
+                <div className='container'>
+                <div className='email'>Thank you for your passion! <br/>We will see you soon!<br/> are you sure you want to join us?</div>
+              
                 <form>
-                    <div className='card'>
+                    {/* <div className='card'>
                         <label>
                             How do you feel today?
                         </label><br/>
@@ -129,10 +143,11 @@ class Aideo extends Component{
                         <input type='radio' name='ans2' value='It is OK' onChange={this.answerSelected}/>It is OK
                         <input type='radio' name='ans2' value='Whatever' onChange={this.answerSelected}/>Whatever
                         <input type='radio' name='ans2' value='OMG' onChange={this.answerSelected}/>OMG
-                    </div>
+                    </div> */}
 
                     <input className='feedback-button' type='button' value='submit' onClick={this.surveySubmit}/>
                 </form>
+                </div>
             </div>
         }
 
@@ -140,12 +155,12 @@ class Aideo extends Component{
 
    
             <div>
-                <div className='email'>Email</div>
+               
 
                 {name}
 
     
-                {/* {questions} */}
+                {questions}
 
             </div>
         )
