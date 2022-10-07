@@ -27,10 +27,8 @@ firebase.initializeApp(firebaseConfig);
 
 
 
-
 class Aideo extends Component{
 
-    
 
     ideoerNameSubmit(event){
         var name = this.refs.name.value;
@@ -97,13 +95,11 @@ class Aideo extends Component{
 
         if(this.state.ideoerName =='' && this.state.isSubmitted ==false){
             name = <div>
-                <h1>
-                    Enter Your Email
-                </h1>
+           
                 <form>
                     <input className='ideo_name' type='text' placeholder='Your email here' ref="name"/>
                     <br/>
-                    <input className='feedback-button' type='button' value='Next' onClick={this.ideoerNameSubmit}/>
+                    <input className='feedback-button' type='button' value='Submit' onClick={this.ideoerNameSubmit}/>
                 </form>
                 </div>
         }
@@ -144,13 +140,12 @@ class Aideo extends Component{
 
    
             <div>
-                <h1>Hey IDEOer</h1>
+                <div className='email'>Email</div>
 
                 {name}
 
-                -----
-
-                {questions}
+    
+                {/* {questions} */}
 
             </div>
         )
