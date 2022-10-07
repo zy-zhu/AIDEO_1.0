@@ -92,6 +92,7 @@ class Aideo extends Component{
     render(){
         var name='';
         var questions='';
+        var finish='';
 
         if(this.state.ideoerName =='' && this.state.isSubmitted ==false){
             name = <div>
@@ -122,7 +123,7 @@ Share your details here:
             </div>
             questions=<div>
                 <div className='container'>
-                <div className='email'>Thank you for your passion! <br/>We will see you soon!<br/> are you sure you want to join us?</div>
+                <div className='email'> Thank you, friend. <br/> Are you sure you want to join? </div>
               
                 <form>
                     {/* <div className='card'>
@@ -148,6 +149,14 @@ Share your details here:
                     <input className='feedback-button' type='button' value='submit' onClick={this.surveySubmit}/>
                 </form>
                 </div>
+            </div>
+        }
+
+        else if(this.ideoerName !=='' && this.state.isSubmitted ==true){
+            name=<div>
+                 <div className='container'>
+                 <div className='email'> Congratulations on submitting successfully <br/> You will hear from us soon.&gt;3<br/><br/> - your sincere aiDEO team </div>
+          </div>
             </div>
         }
 
